@@ -47,8 +47,8 @@ SAÍDA ESPERADA:
 ## Test
 
 ```
-git clone https://github.com/guipfernandes/Railroad-graph.git
-cd Railroad-graph
-npm install 
-npm run test
+$ git clone https://github.com/guipfernandes/Railroad-graph.git
+$ cd Railroad-graph
+$ npm install 
+$ npm run test
 ```
