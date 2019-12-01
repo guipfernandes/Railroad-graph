@@ -43,3 +43,12 @@ SAÍDA ESPERADA:
 - #8: 9
 - #9: 9
 - #10: 7
+
+## Test
+
+```
+git clone https://github.com/guipfernandes/Railroad-graph.git
+cd Railroad-graph
+npm install 
+npm run test
+```
