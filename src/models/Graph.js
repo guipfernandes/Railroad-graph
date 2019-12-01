@@ -68,33 +68,28 @@ module.exports = class Graph {
 
   dijkstra(origin, destination) {
     let distances = {}
-    let previous = {}
-    let queue = []
     let vertices = this.getVertices()
 
     for(let vertex of vertices) {
       distances[vertex] = Infinity
-      previous[vertex] = null
-      queue.push(vertex)
     }
     distances[origin] = 0
     
-    while(queue.length > 0) {
+    while(vertices.length > 0) {
       let temp = Infinity
       let vertex = null
-      for(let i in queue) {
-        if (distances[queue[i]] < temp) {
-          vertex = queue[i]
-          temp = distances[queue[i]]
+      for(let i in vertices) {
+        if (distances[vertices[i]] < temp) {
+          vertex = vertices[i]
+          temp = distances[vertices[i]]
         }
       }
       if (vertex === destination) break
-      queue.splice(queue.indexOf(vertex), 1)
+      vertices.splice(vertices.indexOf(vertex), 1)
       this.nodes.filter(node => node.from === vertex).map(node => {
         let alt = distances[vertex] + node.distance
         if (alt < distances[node.to]) {
           distances[node.to] = alt
-          previous[node.to] = vertex
         }
       })
     }
