@@ -36,19 +36,14 @@ module.exports = class Graph {
   evaluateRoutes(trip, currentNode, destination, maxStops, maxDistance, validation) {
     const currentRoute = [...trip, currentNode];
     if(currentNode === destination && currentRoute.length > 1) {
-      if (maxStops && maxDistance && validation(trip, maxStops, maxDistance)) {
-        return (1 + this.nodes
-          .filter(node => node.from === currentNode)
-          .reduce(
-            (sum, node) => sum + this.evaluateRoutes(currentRoute, node.to, destination, maxStops, maxDistance, validation), 0
-          ));
-      } else if (maxStops && validation(trip, maxStops)) {
+      if (maxStops && validation(trip, maxStops)) {
         return 1;
       } else if (maxDistance && validation(currentRoute, maxDistance)) {
+        // Continua a buscar mesmo depois de chegar ao nó destino para alcançar novas rotas passando pelo destino
         return (1 + this.nodes
           .filter(node => node.from === currentNode)
-          .reduce(
-            (sum, node) => sum + this.evaluateRoutes(currentRoute, node.to, destination, maxStops, maxDistance, validation), 0
+          .reduce((sum, node) => 
+            sum + this.evaluateRoutes(currentRoute, node.to, destination, maxStops, maxDistance, validation), 0
           ));
       }
     }
@@ -58,8 +53,8 @@ module.exports = class Graph {
     } else {
       return this.nodes
         .filter(node => node.from === currentNode)
-        .reduce(
-          (sum, node) => sum + this.evaluateRoutes(currentRoute, node.to, destination, maxStops, maxDistance, validation), 0
+        .reduce((sum, node) => 
+          sum + this.evaluateRoutes(currentRoute, node.to, destination, maxStops, maxDistance, validation), 0
         );
     }
   }
@@ -78,12 +73,6 @@ module.exports = class Graph {
   countRoutesWithMaxDistance(origin, destination, maxDistance) {
     return this.evaluateRoutes([], origin, destination, null, maxDistance, 
       (trip, maxDistance) => this.getDistance(trip) < maxDistance);
-  }
-
-  // Conta rotas que possuem a distância e paradas máximas passadas
-  countRoutesWithMaxStopsAndDistance(origin, destination, stops, maxDistance) {
-    return this.evaluateRoutes([], origin, destination, stops, maxDistance, 
-      (trip, maxStops, maxDistance) => this.getDistance(trip) < maxDistance && trip.length <= maxStops);
   }
 
   // Algoritmo de dijkstra para retornar menor percuso em um grafo
@@ -138,4 +127,3 @@ module.exports = class Graph {
 
 
 }
-

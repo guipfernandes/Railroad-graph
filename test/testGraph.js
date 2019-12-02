@@ -25,16 +25,16 @@ describe('Get distance', () => {
   });
 });
 
-describe('Count routes', () => {
-  it("#6: Count routes C --> C with max 3 stops is 2", () => {
+describe('Route count', () => {
+  it("#6: Route count C --> C with max 3 stops is 2", () => {
     assert.equal(2, railroad.countRoutesWithMaxStops('C', 'C', 3));
   });
 
-  it("#7: Count routes A --> C with exactly 4 stops is 3", () => {
+  it("#7: Route count A --> C with exactly 4 stops is 3", () => {
     assert.equal(3, railroad.countRoutesStopsEqualsTo('A', 'C', 4));
   });
   
-  it("#10: Count routes C --> C with max distance 30 is 7", () => {
+  it("#10: Route count C --> C with max distance 30 is 7", () => {
     assert.equal(7, railroad.countRoutesWithMaxDistance('C', 'C', 30));
   });
 });
@@ -46,11 +46,5 @@ describe('Shortest distance', () => {
 
   it("#9: Shortest distance of B --> B is 9", () => {
     assert.equal(9, railroad.getShortestDistanceRoute('B', 'B'));
-  });
-});
-
-describe('Extra test', () => {
-  it("#EXTRA: Count routes A --> E with max 3 stops and max distance 11 is 3", () => {
-    assert.equal(3, railroad.countRoutesWithMaxStopsAndDistance('A', 'E', 3, 11));
   });
 });
