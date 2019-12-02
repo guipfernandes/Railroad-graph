@@ -22,8 +22,9 @@ module.exports = class Graph {
   }
 
   // Retorna a distância da rota passada
-  getDistance([...nodes]) {
+  getDistance(nodes) {
     let distance = 0;
+    if (!Array.isArray(nodes)) throw new Error("Paramater must be an array")
     for(let i = 0; i < nodes.length - 1; i++) {
       let edge = this.nodes.find(node => node.from === nodes[i] && node.to === nodes[i+1]);
       if (!edge || !edge.distance || isNaN(edge.distance)) throw new Error("Route doesn't exists");
@@ -69,7 +70,7 @@ module.exports = class Graph {
     return this.evaluateRoutes([], origin, destination, stops, null, (trip, maxStops) => trip.length === maxStops);
   }
 
-  // Conta rotas que possuem a distância máxima passada
+  // Conta rotas que possuem a distância menor que a passada
   countRoutesWithDistanceLessThan(origin, destination, maxDistance) {
     return this.evaluateRoutes([], origin, destination, null, maxDistance, 
       (trip, maxDistance) => this.getDistance(trip) < maxDistance);
