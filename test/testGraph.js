@@ -35,7 +35,7 @@ describe('Route count', () => {
   });
   
   it("#10: Route count C --> C with max distance 30 is 7", () => {
-    assert.equal(7, railroad.countRoutesWithMaxDistance('C', 'C', 30));
+    assert.equal(7, railroad.countRoutesWithDistanceLessThan('C', 'C', 30));
   });
 });
   

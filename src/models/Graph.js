@@ -70,7 +70,7 @@ module.exports = class Graph {
   }
 
   // Conta rotas que possuem a distância máxima passada
-  countRoutesWithMaxDistance(origin, destination, maxDistance) {
+  countRoutesWithDistanceLessThan(origin, destination, maxDistance) {
     return this.evaluateRoutes([], origin, destination, null, maxDistance, 
       (trip, maxDistance) => this.getDistance(trip) < maxDistance);
   }
